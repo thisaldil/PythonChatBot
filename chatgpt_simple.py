@@ -2,7 +2,7 @@ import openai
 import time
 
 # Set your OpenAI API key
-openai.api_key = "sk-tSgw_a_AmEhPE82UYGDmtJJgz-CODjqBTUGA9WkKq7T3BlbkFJ3pc1YwVpFPIA8JaALM64i4T05bk6up3_pr5Es2pRQA"
+openai.api_key = "##"
 
 def get_openai_response(messages):
     while True:

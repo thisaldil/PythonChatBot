@@ -1,15 +1,15 @@
+import streamlit as st
 import openai
-import gradio as gr
 import time
 
 # Set your OpenAI API key
-openai.api_key = "sk-tSgw_a_AmEhPE82UYGDmtJJgz-CODjqBTUGA9WkKq7T3BlbkFJ3pc1YwVpFPIA8JaALM64i4T05bk6up3_pr5Es2pRQA"
+openai.api_key = "##"
 
-# Initial system message to set the assistant's role
+# Initialize the messages list with a system message
 messages = [{"role": "system", "content": "You are a financial expert that specializes in real estate investment and negotiation"}]
 
-def CustomChatGPT(user_input):
-    # Append the user's input to the messages
+def get_chat_response(user_input):
+    # Append the user's input to the messages list
     messages.append({"role": "user", "content": user_input})
     
     while True:
@@ -19,39 +19,38 @@ def CustomChatGPT(user_input):
                 model="gpt-3.5-turbo",
                 messages=messages
             )
-            # Extract the assistant's reply from the response
-            ChatGPT_reply = response["choices"][0]["message"]["content"]
-            # Append the assistant's reply to the messages
-            messages.append({"role": "assistant", "content": ChatGPT_reply})
-            return ChatGPT_reply
+            chat_reply = response["choices"][0]["message"]["content"]
+            # Append the assistant's reply to the messages list
+            messages.append({"role": "assistant", "content": chat_reply})
+            return chat_reply
         
         except openai.error.RateLimitError:
-            # If rate limit is exceeded, wait for 5 minutes before retrying
-            print("Rate limit exceeded. Retrying after 5 minutes...")
+            st.write("Rate limit exceeded. Retrying after 5 minutes...")
             time.sleep(300)
         
         except openai.error.AuthenticationError:
-            # If there is an authentication error, print an error message and break the loop
-            print("Invalid API key. Please check your API key.")
-            break
+            st.write("Invalid API key. Please check your API key.")
+            return
         
         except openai.error.APIError as e:
-            # If there is an API error, print the error message and break the loop
-            print(f"OpenAI API error occurred: {e}")
-            break
+            st.write(f"OpenAI API error occurred: {e}")
+            return
         
         except Exception as e:
-            # If an unexpected error occurs, print the error message and break the loop
-            print(f"An unexpected error occurred: {e}")
-            break
+            st.write(f"An unexpected error occurred: {e}")
+            return
 
-# Create a Gradio interface for the custom ChatGPT function
-demo = gr.Interface(
-    fn=CustomChatGPT,  # The function to be called for each input
-    inputs="text",  # Input type is text
-    outputs="text",  # Output type is text
-    title="Real Estate Pro"  # Title of the Gradio interface
-)
+# Streamlit UI
+st.title("AI-Powered ChatBot   ")
 
-# Launch the Gradio interface with sharing enabled
-demo.launch(share=True)
+# Input text box for user messages
+user_input = st.text_input("You:", "")
+
+# Button to send the message
+if st.button("Send"):
+    if user_input:
+        # Get the response from the chatbot
+        response = get_chat_response(user_input)
+        # Display the response
+        st.write(f"**Assistant:** {response}")
+
