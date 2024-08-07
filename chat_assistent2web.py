@@ -6,7 +6,7 @@ import time
 openai.api_key = "##"
 
 # Initialize the messages list with a system message
-messages = [{"role": "system", "content": "You are a financial expert that specializes in real estate investment and negotiation"}]
+messages = [{"role": "system", "content": "You are a financial expert that specializes in Business and negotiation"}]
 
 def get_chat_response(user_input):
     # Append the user's input to the messages list
