@@ -16,6 +16,6 @@ Replace "your-api-key-here" in the script with your actual OpenAI API key.
 
 Clone the Repository:
 Copy code
-git clone https://github.com/thisaldil/ai-powered-chatbot.git
+git clone https://github.com/thisaldil/PythonChatBot
 
 Good Luck
