@@ -1,4 +1,4 @@
-AI-Powered ChatBot
+AI-Powered ChatBot -
 AI-Powered ChatBot is a web-based application that utilizes OpenAI's GPT-3.5-turbo model to deliver real-time, expert-level advice on Business and negotiation. Developed using Streamlit and OpenAI’s API, this application offers an intuitive and interactive interface for engaging with a specialized financial assistant.
 
 Features
